@@ -41,9 +41,7 @@ trait Answerable
             $reply_name = studly_case(substr($method, 9));
             $methodName = 'send' . $reply_name;
 
-            if (!method_exists($this->telegram, $methodName)) {
-                throw new \BadMethodCallException("Method [$method] does not exist.");
-            }
+
 
             if (null === $chat = $this->update->getChat())
             {
