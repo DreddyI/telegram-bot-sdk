@@ -39,18 +39,21 @@ trait Answerable
     {
         if (starts_with($method, 'replyWith')) {
             $reply_name = studly_case(substr($method, 9));
-            $methodName = 'send' . $reply_name;
+            $methodName = 'send'.$reply_name;
 
+            if ( ! is_callable([$this->telegram, $methodName])) {
+                throw new \BadMethodCallException(
+                    sprintf('The method %s::%s is not callable', get_class($this->telegram), $methodName)
+                );
+            }
 
-
-            if (null === $chat = $this->update->getChat())
-            {
+            if (null === $chat = $this->update->getChat()) {
                 throw new \BadMethodCallException("No chat available for reply with [$method].");
             }
 
             $chat_id = $chat->id;
 
-            $params = array_merge(compact('chat_id'), $arguments[0]);
+            $params = array_merge(compact('chat_id'), $arguments[ 0 ]);
 
             return call_user_func_array([$this->telegram, $methodName], [$params]);
         }
