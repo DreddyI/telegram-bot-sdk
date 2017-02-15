@@ -178,9 +178,9 @@ class CommandBus extends AnswerBus
      */
     public function parseCommand($text)
     {
-        if (trim($text) === '') {
-            throw new \InvalidArgumentException('Message is empty, Cannot parse for command');
-        }
+//        if (trim($text) === '') {
+//            throw new \InvalidArgumentException('Message is empty, Cannot parse for command');
+//        }
 
         preg_match('/^\/([^\s@]+)@?(\S+)?\s?(.*)$/s', $text, $matches);
 
